@@ -128,7 +128,7 @@ app.post("/user/login", async (req, res) => {
 				const payload = {
 					email: req.body.email
 				};
-				const token = jwt.sign(payload, secret_key, { expiresIn: "5m" });
+				const token = jwt.sign(payload, secret_key, { expiresIn: "24h" });
 				console.log(token);
 				await UserModel.updateOne({ _id: UserData.id }, { login: true });
 				return res.status(200).json({ message: "ログイン成功" });
