@@ -133,7 +133,7 @@ app.post("/user/login", async (req, res) => {
 				const token = jwt.sign(payload, secret_key, { expiresIn: "24h" });
 				console.log(token);
 				await UserModel.updateOne({ _id: UserData.id }, { login: true });
-				return res.status(200).json({ message: "ログイン成功" });
+				return res.status(200).json({ message: "ログイン成功", token: token });
 			} else {
 				return res.status(400).json({ message: "ログイン失敗: パスワードが違います" });
 			}
