@@ -3,6 +3,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
+app.use(cors());
 
 const auth = require("./utils/auth");
 const connectDB = require("./utils/database");
