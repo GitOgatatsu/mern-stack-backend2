@@ -12,9 +12,9 @@ const auth = async (req, res, next) => {
 		return next();
 	}
 
-	const token = await req.header.authorization.split(" ")[1];
+	const token = await req.headers.authorization.split(" ")[1];
 //	const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9nYXdhQHRlc3QuY29tIiwiaWF0IjoxNjgwODQwMjQ0LCJleHAiOjE2ODA5MjY2NDR9.XyyzW2rpjPL5H9iKd4cwBTZIoQFi7g_AKsclpNJhFIY";
-	console.log(req.header.authorization);
+	console.log(req.headers.authorization);
 	if (!token) {
 		return res.status(400).json({ message: "トークンがありません" });
 	}
@@ -25,7 +25,7 @@ const auth = async (req, res, next) => {
 		req.body.email = decoded.email;
 		await connectDB();
 		const UserData = await UserModel.findOne({ email: req.body.email });
-		console.log(UserData);
+//		console.log(UserData);
 		if (UserData.login !== true) {
 			return res.status(400).json({ message: "ユーザログイン情報不正" });
 		}
