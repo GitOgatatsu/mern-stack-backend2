@@ -148,10 +148,10 @@ app.post("/user/login", async (req, res) => {
 
 
 // Logout User
-app.post("/user/logout/:id", async (req, res) => {
+app.get("/user/logout/:email", async (req, res) => {
 	try {
 		await connectDB();
-		const UserData = await UserModel.findOne({ _id: req.params.id });
+		const UserData = await UserModel.findOne({ email: req.params.email });
 		if (UserData) {
 				await UserModel.updateOne({ _id: UserData.id }, { login: false });
 				return res.status(200).json({ message: "ログアウト成功" });
