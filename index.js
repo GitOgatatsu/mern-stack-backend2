@@ -147,7 +147,7 @@ app.post("/user/login", async (req, res) => {
 
 
 
-// Login User
+// Logout User
 app.post("/user/logout/:id", async (req, res) => {
 	try {
 		await connectDB();
@@ -160,6 +160,28 @@ app.post("/user/logout/:id", async (req, res) => {
 		}
 	} catch (err) {
 		return res.status(400).json({ message: "ログアウト失敗" });
+	}
+});
+
+
+
+// Check User Login
+app.get("/user/check/:email", async (req, res) => {
+	try {
+		await connectDB();
+//		console.log(req.params.email);
+		const UserData = await UserModel.findOne({ email: req.params.email });
+		if (UserData) {
+			if (UserData.login === true) {
+				return res.status(200).json({ message: "true" });
+			} else {
+				return res.status(400).json({ message: "false" });
+			}
+		} else {
+			return res.status(400).json({ message: "false" });
+		}
+	} catch (err) {
+		return res.status(400).json({ message: "ログインチェック失敗" });
 	}
 });
 
